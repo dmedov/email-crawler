@@ -14,6 +14,7 @@ public class CrawlerMain {
     public static final String FILE_NAME = "C:\\Users\\user8\\emails.txt";
 
     public static void main(String[] args) {
+
         EmailCrawler ec = new EmailCrawler();
 
         ec.run(MAIN_URL, FILTER_URL_REGEX);

@@ -71,12 +71,28 @@ public class EmailCrawler {
 
         matcher = pattern.matcher(body);
         while(matcher.find()) {
-            String email = matcher.group(1);
-            if(!emails.contains(email)) {
-                emails.add(email);
-                debugPrint("%s", email);
+            String email = new String(fixEmail(matcher.group(1)));
+            email = fixEmail(email);
+            addEmail(email);
+        }
+    }
+
+    private String fixEmail(String email) {
+        String fixEmail = new String(email);
+        if (email.startsWith("-")) {
+            fixEmail = email.substring(1);
+        }
+        return fixEmail;
+    }
+
+    private void addEmail(String newEmail) {
+        for(String email : emails) {
+            if (email.equalsIgnoreCase(newEmail)) {
+                return;
             }
         }
+        emails.add(newEmail);
+        debugPrint("%s", newEmail);
     }
 
     public ArrayList<String> getEmails() {
